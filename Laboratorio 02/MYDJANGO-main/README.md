@@ -2,7 +2,7 @@
 
 ## Información general
 
-**Curso:** Desarrollo de Aplicaciones Empresariales 
+**Curso:** Desarrollo de Aplicaciones Empresariales <br>
 **Estudiantes:** Gonzalo Davila y Pedro Suarez  
 **Laboratorio:** 02 — Clases, atributos y métodos  
 **Tecnología:** Python 3.10+, Django 5, Visual Studio Code y GitHub  
