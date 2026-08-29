@@ -2,12 +2,17 @@
 
 ## Información general
 
-**Curso:** Desarrollo de Aplicaciones Empresariales  
+**Curso:** Desarrollo de Aplicaciones Empresariales 
+**Estudiantes:** Gonzalo Davila y Pedro Suarez 
 **Laboratorio:** 02 — Clases, atributos y métodos  
 **Tecnología:** Python 3.10+, Django 5, Visual Studio Code y GitHub  
 **Problemática:** Consulta y registro de libros de una biblioteca.
 
 > **Importante:** El laboratorio trabaja con datos estáticos en memoria. No se utilizará una base de datos, migraciones ni el panel de administración de Django. Los datos agregados mediante el formulario se perderán cuando se reinicie el servidor.
+
+# PROGRAMA EN FUNCIONAMIENTO
+
+<img width="1185" height="892" alt="image" src="https://github.com/user-attachments/assets/be6893c4-0092-4d24-a97d-3f6672e59f17" />
 
 ---
 
