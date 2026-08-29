@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    @import url('{% static "library/css/style.css" %}');
+</style>
+
+<div class="confirmation-container">
+    <h1>Cambiar disponibilidad</h1>
+
+    <div class="info-box">
+        <h3>{{ libro.titulo }}</h3>
+        <p>
+            <strong>Estado actual:</strong>
+            {% if libro.disponible %}
+                <span class="status available">Disponible</span>
+            {% else %}
+                <span class="status unavailable">Prestado</span>
+            {% endif %}
+        </p>
+    </div>
+
+    <p class="confirmation-message">
+        ¿Desea cambiar el estado de este libro a:
+        <strong>
+            {% if libro.disponible %}
+                Prestado
+            {% else %}
+                Disponible
+            {% endif %}
+        </strong>
+        ?
+    </p>
+
+    <div class="confirmation-actions">
+        <form method="post" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary">
+                Sí, cambiar estado
+            </button>
+        </form>
+
+        <a href="{% url 'detalle_libro' libro.id %}" class="btn btn-secondary">
+            Cancelar
+        </a>
+    </div>
+</div>
+
+{% endblock %}
