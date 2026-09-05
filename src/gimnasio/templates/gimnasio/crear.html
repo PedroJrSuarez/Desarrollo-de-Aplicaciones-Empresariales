@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    @import url('{% static "library/css/style.css" %}');
+</style>
+
+<h1>Registrar nuevo libro</h1>
+
+<form method="post" class="form-container">
+    {% csrf_token %}
+
+    <div class="form-group">
+        {{ form.titulo.label_tag }}
+        {{ form.titulo }}
+        {% if form.titulo.errors %}
+            <ul class="error-list">
+                {% for error in form.titulo.errors %}
+                    <li class="error">{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+
+    <div class="form-group">
+        {{ form.autor.label_tag }}
+        {{ form.autor }}
+        {% if form.autor.errors %}
+            <ul class="error-list">
+                {% for error in form.autor.errors %}
+                    <li class="error">{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+
+    <div class="form-group">
+        {{ form.categoria.label_tag }}
+        {{ form.categoria }}
+        {% if form.categoria.errors %}
+            <ul class="error-list">
+                {% for error in form.categoria.errors %}
+                    <li class="error">{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+
+    <div class="form-group">
+        {{ form.disponible }}
+        {{ form.disponible.label_tag }}
+        {% if form.disponible.errors %}
+            <ul class="error-list">
+                {% for error in form.disponible.errors %}
+                    <li class="error">{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+
+    <div class="form-actions">
+        <button type="submit" class="btn btn-success">
+            Registrar libro
+        </button>
+    </div>
+</form>
+
+<a href="{% url 'lista_libros' %}" class="btn btn-secondary">
+    Volver al listado
+</a>
+
+{% endblock %}

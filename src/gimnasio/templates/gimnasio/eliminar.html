@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    @import url('{% static "library/css/style.css" %}');
+</style>
+
+<div class="confirmation-container">
+    <h1>Eliminar libro</h1>
+
+    <div class="warning-box">
+        <p>¿Está seguro de que desea eliminar el siguiente libro?</p>
+    </div>
+
+    <div class="book-info">
+        <h3>{{ libro.titulo }}</h3>
+        <p><strong>Autor:</strong> {{ libro.autor }}</p>
+        <p><strong>Categoría:</strong> {{ libro.categoria }}</p>
+        <p><strong>ID:</strong> {{ libro.id }}</p>
+    </div>
+
+    <div class="confirmation-actions">
+        <form method="post" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">
+                Sí, eliminar este libro
+            </button>
+        </form>
+
+        <a href="{% url 'detalle_libro' libro.id %}" class="btn btn-secondary">
+            Cancelar
+        </a>
+    </div>
+</div>
+
+{% endblock %}

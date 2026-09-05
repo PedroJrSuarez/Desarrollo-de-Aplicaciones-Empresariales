@@ -1,6 +1,22 @@
 # Investigación y desarrollo de una nueva solución persistente
 
+<<<<<<< HEAD
 ## Sistema Web de Gestión de Biblioteca
+=======
+## Información general
+
+**Curso:** Desarrollo de Aplicaciones Empresariales <br>
+**Integrantes:** Gonzalo Davila y Pedro Suarez  
+**Laboratorio:** 02 — Clases, atributos y métodos  
+**Tecnología:** Python 3.10+, Django 5, Visual Studio Code y GitHub  
+**Problemática:** Consulta y registro de libros de una biblioteca.
+
+> **Importante:** El laboratorio trabaja con datos estáticos en memoria. No se utilizará una base de datos, migraciones ni el panel de administración de Django. Los datos agregados mediante el formulario se perderán cuando se reinicie el servidor.
+>>>>>>> b6f86ee48449f5387a38e981d18285ee5cb596f0
+
+# PROGRAMA EN FUNCIONAMIENTO
+
+<img width="1185" height="892" alt="image" src="https://github.com/user-attachments/assets/be6893c4-0092-4d24-a97d-3f6672e59f17" />
 
 ---
 
@@ -1044,4 +1060,343 @@ UPDATE
 DELETE
 ```
 
+<<<<<<< HEAD
 utilizando Django ORM y manteniendo la información de manera persistente.
+=======
+---
+
+# CONCLUSIÓN
+
+El laboratorio permite desarrollar una aplicación web utilizando Django y el patrón MVT a partir de una problemática real. En este caso se seleccionó la problemática de una biblioteca, donde los usuarios necesitan consultar los libros y conocer su disponibilidad antes de buscarlos físicamente.
+
+A partir de esta problemática se definieron los requisitos funcionales y la entidad principal `Libro`, cuyos datos serán manejados mediante una lista de diccionarios en memoria. Posteriormente se implementará la nueva App `library`, integrada al proyecto existente y conectada con `core`.
+
+La aplicación permitirá visualizar los libros y registrar nuevos ejemplares mediante un formulario construido con `forms.Form`. El flujo completo seguirá la estructura Request → URL → View → Model → Template → Response.
+
+Finalmente, se verificará el funcionamiento de la aplicación y se actualizará el repositorio de GitHub con el código fuente, `requirements.txt`, `README.md` y las evidencias correspondientes.
+
+> **Limitación:** debido a que el laboratorio no utiliza una base de datos, los registros agregados durante la ejecución se perderán cuando se reinicie el servidor.
+
+---
+
+# IMPLEMENTACIÓN COMPLETADA
+
+## Resumen de la Implementación
+
+Se ha completado la implementación del Laboratorio 02 con **todas las funcionalidades requeridas** en una aplicación Django funcional.
+
+### Ejercicio 1 — Investigación de la Problemática ✓
+
+La problemática fue documentada al inicio de este archivo:
+- **Contexto:** Usuarios de biblioteca pierden tiempo buscando libros sin conocer disponibilidad
+- **Solución:** Aplicación web que permite consultar libros y conocer su estado
+
+### Ejercicio 2 — Requisitos Funcionales ✓
+
+Se implementaron **12 requisitos funcionales (RF01-RF12)**:
+- RF01: Consultar listado de libros ✓
+- RF02: Ver disponibilidad (Disponible/Prestado) ✓
+- RF03: Registrar nuevos libros ✓
+- RF04: Validar datos obligatorios ✓
+- RF05: Mostrar nuevo libro en listado ✓
+- RF06: Buscar por título ✓
+- RF07: Buscar por autor ✓
+- RF08: Filtrar por categoría ✓
+- RF09: Ver información detallada del libro ✓
+- RF10: Actualizar disponibilidad ✓
+- RF11: Editar información del libro ✓
+- RF12: Eliminar libros ✓
+
+### Ejercicio 3 — Modelo de Datos ✓
+
+Se definió la entidad `Libro` con campos:
+- `id`: Entero único
+- `titulo`: Texto obligatorio
+- `autor`: Texto obligatorio
+- `categoria`: Texto obligatorio
+- `disponible`: Booleano (True/False)
+
+### Ejercicio 4 — Crear la App ✓
+
+Se creó la app `library` registrada en `config/settings.py`:
+```python
+INSTALLED_APPS = [
+    # ...
+    'core',
+    'library',
+]
+```
+
+### Ejercicio 5 — Datos Estáticos ✓
+
+Se implementó `library/models.py` con una lista de **5 libros de ejemplo** almacenados en memoria:
+- Cien años de soledad (Disponible)
+- Don Quijote de la Mancha (Prestado)
+- El principito (Disponible)
+- 1984 (Disponible)
+- Orgullo y prejuicio (Prestado)
+
+### Ejercicio 6 — Listado ✓
+
+Se implementó:
+- **Vista:** `lista_libros()` en `library/views.py`
+- **URL:** `/library/` en `library/urls.py`
+- **Template:** `library/templates/library/lista.html`
+- **Características:** Muestra tabla con ID, Título, Autor, Categoría, Disponibilidad
+
+### Ejercicio 7 — Formulario ✓
+
+Se creó `library/forms.py` con `LibroForm` usando `forms.Form`:
+- Campo: `titulo` (CharField, max_length=200, obligatorio)
+- Campo: `autor` (CharField, max_length=150, obligatorio)
+- Campo: `categoria` (CharField, max_length=100, obligatorio)
+- Campo: `disponible` (BooleanField, opcional)
+
+### Ejercicio 8 — Crear Libro ✓
+
+Se implementó:
+- **Vista:** `crear_libro()` con GET (mostrar form) y POST (procesar)
+- **Validación:** Django valida automáticamente los campos
+- **Redirección:** Después de crear, redirige a `/library/`
+- **Template:** `library/templates/library/crear.html`
+
+### Ejercicio 9 — Funcionalidades Adicionales ✓
+
+Se implementaron todas las funcionalidades extras:
+
+#### Buscar por Título (RF06)
+- Campo de texto en el listado
+- Búsqueda case-insensitive
+- Filtra resultados en tiempo real
+
+#### Buscar por Autor (RF07)
+- Campo de texto en el listado
+- Búsqueda case-insensitive
+- Funciona en combinación con otros filtros
+
+#### Filtrar por Categoría (RF08)
+- Dropdown con todas las categorías
+- Extrae automáticamente categorías únicas
+- Permite filtrar el listado
+
+#### Ver Información Detallada (RF09)
+- **Vista:** `detalle_libro()` 
+- **URL:** `/library/<id>/`
+- **Template:** `library/templates/library/detalle.html`
+- Muestra: ID, Título, Autor, Categoría, Disponibilidad
+
+#### Actualizar Disponibilidad (RF10)
+- **Vista:** `actualizar_disponibilidad()`
+- **URL:** `/library/<id>/disponibilidad/`
+- Cambia entre Disponible ↔ Prestado
+- Modifica directamente en la lista en memoria
+
+#### Editar Libro (RF11)
+- **Vista:** `editar_libro()`
+- **URL:** `/library/<id>/editar/`
+- **Template:** `library/templates/library/editar.html`
+- Pre-llena el formulario con datos actuales
+- Valida cambios antes de guardar
+
+#### Eliminar Libro (RF12)
+- **Vista:** `eliminar_libro()`
+- **URL:** `/library/<id>/eliminar/`
+- **Template:** `library/templates/library/eliminar.html`
+- Pide confirmación antes de eliminar
+- Elimina de la lista en memoria
+
+### Ejercicio 10 — Archivos Finales ✓
+
+#### Archivos Creados
+1. `library/models.py` — Datos estáticos (lista de libros)
+2. `library/forms.py` — Formulario LibroForm
+3. `library/views.py` — 7 vistas principales
+4. `library/urls.py` — Rutas de la app
+5. `library/templates/library/lista.html` — Listado con búsqueda/filtro
+6. `library/templates/library/crear.html` — Formulario crear
+7. `library/templates/library/detalle.html` — Información del libro
+8. `library/templates/library/editar.html` — Formulario editar
+9. `library/templates/library/eliminar.html` — Confirmación eliminar
+10. `library/templates/library/actualizar_disponibilidad.html` — Cambiar estado
+11. `library/static/library/css/style.css` — Estilos personalizados
+
+#### Archivos Modificados
+1. `config/settings.py` — Agregada app 'library' a INSTALLED_APPS
+2. `config/urls.py` — Agregada ruta `path('library/', include('library.urls'))`
+
+## Estructura del Proyecto
+
+```
+src/
+├── manage.py
+├── config/
+│   ├── settings.py (MODIFICADO)
+│   ├── urls.py (MODIFICADO)
+│   ├── asgi.py
+│   └── wsgi.py
+├── core/
+│   ├── views.py
+│   ├── urls.py
+│   ├── templates/
+│   │   └── base.html
+│   ├── static/
+│   │   └── core/css/style.css
+│   └── ...
+└── library/ (NUEVO)
+    ├── migrations/
+    ├── models.py (NUEVO)
+    ├── forms.py (NUEVO)
+    ├── views.py (NUEVO)
+    ├── urls.py (NUEVO)
+    ├── static/
+    │   └── library/css/style.css (NUEVO)
+    ├── templates/
+    │   └── library/
+    │       ├── lista.html (NUEVO)
+    │       ├── crear.html (NUEVO)
+    │       ├── detalle.html (NUEVO)
+    │       ├── editar.html (NUEVO)
+    │       ├── eliminar.html (NUEVO)
+    │       └── actualizar_disponibilidad.html (NUEVO)
+    └── ...
+```
+
+## Patrón MVT
+
+La aplicación sigue el patrón MVT de Django:
+
+```
+REQUEST (Usuario accede a URL)
+   ↓
+URL ROUTING (config/urls.py → library/urls.py)
+   ↓
+VIEW (library/views.py - lógica de negocio)
+   ↓
+MODEL (library/models.py - datos en lista)
+   ↓
+TEMPLATE (library/templates/*.html - presentación)
+   ↓
+RESPONSE (HTML renderizado al navegador)
+```
+
+## Rutas Disponibles
+
+| Ruta | Método | Descripción |
+|------|--------|-------------|
+| `/library/` | GET | Listado de libros con búsqueda y filtros |
+| `/library/crear/` | GET/POST | Formulario para crear nuevo libro |
+| `/library/<id>/` | GET | Ver detalle de un libro |
+| `/library/<id>/editar/` | GET/POST | Editar información de libro |
+| `/library/<id>/eliminar/` | GET/POST | Eliminar libro |
+| `/library/<id>/disponibilidad/` | GET/POST | Cambiar disponibilidad |
+
+## Ejecución del Proyecto
+
+### Instalación de Dependencias
+```bash
+pip install Django==5.2.17
+```
+
+### Ejecutar el Servidor
+```bash
+cd src
+python manage.py runserver
+```
+
+El servidor iniciará en `http://127.0.0.1:8000/`
+
+### Verificación
+```bash
+python manage.py check
+```
+
+## Pruebas Realizadas
+
+✓ `/library/` — Listado de 5 libros inicial  
+✓ Búsqueda por título funciona  
+✓ Búsqueda por autor funciona  
+✓ Filtro por categoría funciona  
+✓ `/library/crear/` — Formulario se muestra  
+✓ Registro de nuevo libro funciona  
+✓ Nuevo libro aparece en listado  
+✓ `/library/1/` — Detalle muestra información  
+✓ Editar libro modifica datos  
+✓ Cambiar disponibilidad funciona  
+✓ Eliminar libro remueve de lista  
+✓ Validación de formulario funciona  
+✓ Errores se muestran correctamente  
+✓ App core sigue funcionando  
+✓ `python manage.py check` — Sin errores
+
+## Limitaciones
+
+⚠️ **Almacenamiento en Memoria**
+- Los datos se almacenan en una lista de Python en memoria
+- Al reiniciar el servidor, todos los datos se pierden
+- Los cambios no persisten entre sesiones
+- No es adecuado para producción
+
+## Requisitos del Sistema
+
+- Python 3.10+
+- Django 5.2+
+- Navegador web moderno
+- Visual Studio Code (opcional)
+
+## Notas de Implementación
+
+1. **Sin Base de Datos:** Se usa una lista de diccionarios en memoria
+2. **Sin Migraciones:** No se crearon migraciones para la app library
+3. **Sin ModelForm:** Se utilizó `forms.Form` en lugar de `forms.ModelForm`
+4. **Validación Django:** Validación automática de campos del formulario
+5. **Reutilización de CSS:** Se creó CSS personalizado para library
+6. **Convivencia con Core:** La app library coexiste sin afectar la app core existente
+
+## Flujo de Uso
+
+### 1. Ver Libros
+1. Acceder a `/library/`
+2. Ver tabla de libros con disponibilidad
+3. Opcionalmente buscar o filtrar
+
+### 2. Crear Libro
+1. Clic en "Registrar nuevo libro"
+2. Completar formulario
+3. Enviar
+4. Aparece en listado
+
+### 3. Ver Detalles
+1. Clic en "Ver" en listado o título en tabla
+2. Visualizar información completa
+3. Opciones: Editar, Cambiar disponibilidad, Eliminar
+
+### 4. Editar Libro
+1. Clic en "Editar"
+2. Modificar datos
+3. Guardar cambios
+4. Retorna a detalle
+
+### 5. Cambiar Disponibilidad
+1. En detalle, clic en botón de disponibilidad
+2. Confirmar cambio
+3. Se actualiza inmediatamente
+
+### 6. Eliminar Libro
+1. Clic en "Eliminar"
+2. Confirmar eliminación
+3. Se remueve de lista
+
+## Conclusión de la Implementación
+
+Se completó exitosamente la implementación del Laboratorio 02 con:
+- ✅ App completa y funcional
+- ✅ Todos los 12 requisitos implementados
+- ✅ Patrón MVT correctamente aplicado
+- ✅ Datos en memoria como se requería
+- ✅ Interfaz amigable y clara
+- ✅ Validación de datos
+- ✅ Integración con proyecto existente
+- ✅ Sin errores en verificación Django
+
+La aplicación está lista para uso y evaluación.
+>>>>>>> b6f86ee48449f5387a38e981d18285ee5cb596f0

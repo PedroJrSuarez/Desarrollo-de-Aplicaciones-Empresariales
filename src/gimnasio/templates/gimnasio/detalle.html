@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    @import url('{% static "library/css/style.css" %}');
+</style>
+
+<div class="detail-container">
+    <h1>{{ libro.titulo }}</h1>
+
+    <div class="detail-card">
+        <div class="detail-row">
+            <span class="label">ID:</span>
+            <span class="value">{{ libro.id }}</span>
+        </div>
+
+        <div class="detail-row">
+            <span class="label">Título:</span>
+            <span class="value">{{ libro.titulo }}</span>
+        </div>
+
+        <div class="detail-row">
+            <span class="label">Autor:</span>
+            <span class="value">{{ libro.autor }}</span>
+        </div>
+
+        <div class="detail-row">
+            <span class="label">Categoría:</span>
+            <span class="value">{{ libro.categoria }}</span>
+        </div>
+
+        <div class="detail-row">
+            <span class="label">Disponibilidad:</span>
+            <span class="value">
+                {% if libro.disponible %}
+                    <span class="status available">Disponible</span>
+                {% else %}
+                    <span class="status unavailable">Prestado</span>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+
+    <div class="detail-actions">
+        <a href="{% url 'editar_libro' libro.id %}" class="btn btn-warning">
+            Editar
+        </a>
+        
+        <form method="post" action="{% url 'actualizar_disponibilidad' libro.id %}" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-info">
+                {% if libro.disponible %}
+                    Marcar como Prestado
+                {% else %}
+                    Marcar como Disponible
+                {% endif %}
+            </button>
+        </form>
+        
+        <a href="{% url 'eliminar_libro' libro.id %}" class="btn btn-danger">
+            Eliminar
+        </a>
+    </div>
+</div>
+
+<a href="{% url 'lista_libros' %}" class="btn btn-secondary">
+    Volver al listado
+</a>
+
+{% endblock %}

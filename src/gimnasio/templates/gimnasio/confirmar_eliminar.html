@@ -1,0 +1,12 @@
+{% extends "gimnasio/base.html" %}
+{% block title %}Confirmar eliminación | Gimnasio{% endblock %}
+{% block content %}
+<h1>{{ titulo }}</h1>
+<p>¿Deseas eliminar <strong>{{ objeto }}</strong>?</p>
+<form method="post" class="panel">
+    {% csrf_token %}
+    <button class="button danger" type="submit">Confirmar eliminación</button>
+    <a class="button secondary" href="{% url cancelar_url %}">Cancelar</a>
+</form>
+{% endblock %}
+
