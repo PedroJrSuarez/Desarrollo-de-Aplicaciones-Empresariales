@@ -1,0 +1,13 @@
+{% extends "gimnasio/base.html" %}
+{% block title %}Inicio | Gimnasio{% endblock %}
+{% block content %}
+<h1>Panel principal</h1>
+<p>Administra la información persistente del gimnasio.</p>
+<div class="grid">
+    <div class="card"><h2>{{ total_clientes }}</h2><a href="{% url 'lista_clientes' %}">Clientes</a></div>
+    <div class="card"><h2>{{ total_entrenadores }}</h2><a href="{% url 'lista_entrenadores' %}">Entrenadores</a></div>
+    <div class="card"><h2>{{ total_membresias }}</h2><a href="{% url 'lista_membresias' %}">Membresías</a></div>
+    <div class="card"><h2>{{ total_rutinas }}</h2><a href="{% url 'lista_rutinas' %}">Rutinas</a></div>
+    <div class="card"><h2>{{ total_asistencias }}</h2><a href="{% url 'lista_asistencias' %}">Asistencias</a></div>
+</div>
+{% endblock %}

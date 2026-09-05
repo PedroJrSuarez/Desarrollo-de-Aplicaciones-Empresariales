@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Gimnasio{% endblock %}</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; color: #243447; background: #f4f6f8; }
+        header { background: #17324d; color: white; padding: 1rem 2rem; }
+        nav a { color: white; margin-right: 1rem; text-decoration: none; }
+        main { max-width: 1100px; margin: 2rem auto; padding: 0 1rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1rem; }
+        .card, table, form.panel { background: white; padding: 1rem; border-radius: 6px; box-shadow: 0 1px 4px #ccd3da; }
+        .card a { text-decoration: none; color: #1769aa; }
+        table { width: 100%; border-collapse: collapse; padding: 0; overflow: hidden; }
+        th, td { padding: .75rem; border-bottom: 1px solid #e5e9ed; text-align: left; }
+        th { background: #eaf0f5; }
+        .actions { display: flex; gap: .5rem; flex-wrap: wrap; }
+        .button { display: inline-block; border: 0; border-radius: 4px; padding: .55rem .8rem; background: #1769aa; color: white; text-decoration: none; cursor: pointer; }
+        .button.secondary { background: #6c757d; } .button.danger { background: #b42318; }
+        label { display: block; margin-top: .8rem; font-weight: bold; } input, select, textarea { width: 100%; box-sizing: border-box; padding: .55rem; margin-top: .25rem; }
+        .errorlist { color: #b42318; } .available { color: #16734a; font-weight: bold; }
+    </style>
+</head>
+<body>
+<header>
+    <strong>Sistema de Gestión de Gimnasio</strong>
+    <nav>
+        <a href="{% url 'inicio' %}">Inicio</a>
+        <a href="{% url 'lista_clientes' %}">Clientes</a>
+        <a href="{% url 'lista_entrenadores' %}">Entrenadores</a>
+        <a href="{% url 'lista_membresias' %}">Membresías</a>
+        <a href="{% url 'lista_rutinas' %}">Rutinas</a>
+        <a href="{% url 'lista_asistencias' %}">Asistencias</a>
+    </nav>
+</header>
+<main>{% block content %}{% endblock %}</main>
+</body>
+</html>
