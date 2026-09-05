@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    @import url('{% static "library/css/style.css" %}');
+</style>
+
+<h1>Biblioteca</h1>
+
+<!-- Formulario de búsqueda y filtrado -->
+<div class="search-section">
+    <form method="get" action="{% url 'lista_libros' %}" class="search-form">
+        <div class="form-row">
+            <div class="form-group">
+                <input 
+                    type="text" 
+                    name="titulo" 
+                    placeholder="Buscar por título"
+                    value="{{ buscar_titulo }}"
+                    class="form-input"
+                >
+            </div>
+            
+            <div class="form-group">
+                <input 
+                    type="text" 
+                    name="autor" 
+                    placeholder="Buscar por autor"
+                    value="{{ buscar_autor }}"
+                    class="form-input"
+                >
+            </div>
+            
+            <div class="form-group">
+                <select name="categoria" class="form-input">
+                    <option value="">Todas las categorías</option>
+                    {% for cat in categorias %}
+                        <option value="{{ cat }}" {% if filtro_categoria == cat %}selected{% endif %}>
+                            {{ cat }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Buscar</button>
+            <a href="{% url 'lista_libros' %}" class="btn btn-secondary">Limpiar</a>
+        </div>
+    </form>
+</div>
+
+<!-- Botón para registrar libro -->
+<div class="action-section">
+    <a href="{% url 'crear_libro' %}" class="btn btn-success">
+        Registrar nuevo libro
+    </a>
+</div>
+
+<!-- Tabla de libros -->
+<div class="table-section">
+    {% if libros %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Autor</th>
+                    <th>Categoría</th>
+                    <th>Disponibilidad</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for libro in libros %}
+                <tr>
+                    <td>{{ libro.id }}</td>
+                    <td>
+                        <a href="{% url 'detalle_libro' libro.id %}">
+                            {{ libro.titulo }}
+                        </a>
+                    </td>
+                    <td>{{ libro.autor }}</td>
+                    <td>{{ libro.categoria }}</td>
+
+                    <td>
+                        {% if libro.disponible %}
+                            <span class="status available">Disponible</span>
+                        {% else %}
+                            <span class="status unavailable">Prestado</span>
+                        {% endif %}
+                    </td>
+                    
+                    <td class="actions">
+                        <a href="{% url 'detalle_libro' libro.id %}" class="btn btn-small btn-info">Ver</a>
+                        <a href="{% url 'editar_libro' libro.id %}" class="btn btn-small btn-warning">Editar</a>
+                        <a href="{% url 'eliminar_libro' libro.id %}" class="btn btn-small btn-danger">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="no-results">No se encontraron libros.</p>
+    {% endif %}
+</div>
+
+{% endblock %}
